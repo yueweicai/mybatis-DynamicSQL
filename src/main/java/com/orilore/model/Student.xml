@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orilore.mappers.StudentMapper">
+	<resultMap type="Student" id="studentResultMap">
+		<id column="sid" property="sid"/>
+		<result column="cc" property="cc"/>
+		<result column="zp" property="zp"/>
+		<result column="sf" property="sf"/>
+		<result column="yx" property="yx"/>
+		<result column="xm" property="xm"/>
+		<result column="xq" property="xq"/>
+		<result column="ksh" property="ksh"/>
+		<result column="xbbm" property="xbbm"/>
+		<result column="csny" property="csny"/>
+		<result column="zxdm" property="zxdm"/>
+		<result column="zxmc" property="zxmc"/>
+		<result column="sfzh" property="sfzh"/>
+		<result column="jtdz" property="jtdz"/>
+		<result column="kstatus" property="kstatus"/>
+		<result column="kcontent" property="kcontent"/>
+		<result column="lqzy" property="lqzy"/>
+		<result column="czmm" property="czmm"/>
+		<result column="bj" property="bj"/>
+		<result column="mz" property="mz"/>
+		<result column="zstatus" property="zstatus"/>
+		<result column="zconent" property="zconent"/>
+		<result column="xh" property="xh"/>
+		<result column="xz" property="xz"/>
+		<result column="kstz" property="kstz"/>
+		<result column="lxdh" property="lxdh"/>
+		<result column="wyyz" property="wyyz"/>
+		<result column="qstatus" property="qstatus"/>
+		<result column="qcontent" property="qcontent"/>
+		<result column="age" property="age"/>
+	</resultMap>
+	<select id="selectOne" parameterType="int" resultType="Student">
+		select * from student where sid=#{sid}
+	</select>
+	<select id="select"  parameterType="map" resultMap="studentResultMap">
+		select * from student 
+		<where>
+			<if test="sex!=null"> xbbm=#{sex} </if>
+			<if test="name!=null"> and xm like concat('%',#{name},'%') </if>
+			<if test="age1!=null"> and age &gt;= #{age1} </if>
+			<if test="age2!=null"> and age &lt;= #{age2} </if>
+		</where>
+		<if test="begin!=null and rows!=null">
+			limit #{begin},#{rows}
+		</if>
+	</select>
+	<insert id="insert" parameterType="Student">
+		insert into student(sid,cc,zp,sf,yx,xm,xq,ksh,xbbm,csny,zxdm,zxmc,sfzh,jtdz,kstatus,kcontent,lqzy,czmm,bj,mz,zstatus,zconent,xh,xz,kstz,lxdh,wyyz,qstatus,qcontent,age) values(#{sid},#{cc},#{zp},#{sf},#{yx},#{xm},#{xq},#{ksh},#{xbbm},#{csny},#{zxdm},#{zxmc},#{sfzh},#{jtdz},#{kstatus},#{kcontent},#{lqzy},#{czmm},#{bj},#{mz},#{zstatus},#{zconent},#{xh},#{xz},#{kstz},#{lxdh},#{wyyz},#{qstatus},#{qcontent},#{age})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from student where sid=#{sid}
+	</delete>
+	<update id="update" parameterType="Student">
+		update student set cc=#{cc},zp=#{zp},sf=#{sf},yx=#{yx},xm=#{xm},xq=#{xq},ksh=#{ksh},xbbm=#{xbbm},csny=#{csny},zxdm=#{zxdm},zxmc=#{zxmc},sfzh=#{sfzh},jtdz=#{jtdz},kstatus=#{kstatus},kcontent=#{kcontent},lqzy=#{lqzy},czmm=#{czmm},bj=#{bj},mz=#{mz},zstatus=#{zstatus},zconent=#{zconent},xh=#{xh},xz=#{xz},kstz=#{kstz},lxdh=#{lxdh},wyyz=#{wyyz},qstatus=#{qstatus},qcontent=#{qcontent},age=#{age} where sid=#{sid}
+	</update>
+</mapper>
